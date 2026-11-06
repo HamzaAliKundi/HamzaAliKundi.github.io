@@ -3,28 +3,185 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Hamza Ali Kundi</title>
+<title>Hamza Ali Kundi | Apps</title>
+<meta name="description" content="Hamza Ali Kundi makes playful, kid-friendly Android apps, including Math Flash Quiz on Google Play." />
+<link rel="icon" type="image/png" href="assets/math-flash-quiz.png" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@600;700&family=Nunito:wght@600;700;800&display=swap" rel="stylesheet" />
 <style>
-  body {
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-    max-width: 640px;
-    margin: 80px auto;
-    padding: 0 20px;
-    line-height: 1.6;
-    color: #F8FAFC;
-    background: #18202C;
+  :root {
+    --bg: #FFF7E8;
+    --card: #FFFFFF;
+    --ink: #1B1440;
+    --muted: #6B6492;
+    --primary: #4B3BD6;
+    --yellow: #FFD23F;
+    --cyan: #3FD7F0;
+    --coral: #FF8A7A;
+    --green: #3DD68C;
+    --shadow: #1B1440;
   }
-  h1 { font-size: 28px; margin-bottom: 8px; }
-  a { color: #FBBF24; }
-  ul { padding-left: 20px; }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --bg: #15112E;
+      --card: #211B45;
+      --ink: #F4F1FF;
+      --muted: #B3ACDA;
+      --primary: #8C80FF;
+      --shadow: #0A0820;
+    }
+  }
+  :root[data-theme="dark"] {
+    --bg: #15112E;
+    --card: #211B45;
+    --ink: #F4F1FF;
+    --muted: #B3ACDA;
+    --primary: #8C80FF;
+    --shadow: #0A0820;
+  }
+
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--ink);
+    font-family: "Nunito", -apple-system, "Segoe UI", Roboto, sans-serif;
+    font-weight: 700;
+    line-height: 1.6;
+  }
+  .wrap { max-width: 920px; margin: 0 auto; padding: 0 16px; }
+  h1, h2, h3 { font-family: "Fredoka", "Nunito", sans-serif; line-height: 1.15; margin: 0; }
+  a { color: var(--primary); }
+
+  /* Sticker look: thick ink border + hard offset shadow, like the app. */
+  .sticker {
+    background: var(--card);
+    border: 3px solid var(--ink);
+    border-radius: 24px;
+    box-shadow: 5px 5px 0 var(--shadow);
+  }
+
+  header { padding: 56px 0 28px; }
+  .hello { display: flex; align-items: center; gap: 18px; flex-wrap: wrap; }
+  .tiles { display: grid; grid-template-columns: repeat(2, 30px); gap: 6px; transform: rotate(8deg); }
+  .tiles span {
+    width: 30px; height: 30px; border: 2.5px solid var(--ink); border-radius: 9px;
+    display: grid; place-items: center; font-family: "Fredoka", sans-serif; font-size: 18px; color: #1B1440;
+    animation: hop 2.4s ease-in-out infinite;
+  }
+  .tiles span:nth-child(1) { background: var(--cyan); }
+  .tiles span:nth-child(2) { background: var(--yellow); animation-delay: .18s; }
+  .tiles span:nth-child(3) { background: var(--coral); animation-delay: .36s; }
+  .tiles span:nth-child(4) { background: #fff; animation-delay: .54s; }
+  @keyframes hop { 0%, 70%, 100% { transform: translateY(0); } 80% { transform: translateY(-6px); } }
+  @media (prefers-reduced-motion: reduce) { .tiles span { animation: none; } }
+
+  h1 { font-size: clamp(36px, 7vw, 56px); }
+  h1 .hl { color: var(--primary); }
+  .tagline { font-size: clamp(17px, 2.6vw, 20px); color: var(--muted); margin: 14px 0 0; max-width: 560px; }
+
+  section { padding: 22px 0; }
+  .label {
+    font-family: "Nunito", sans-serif; font-weight: 800; font-size: 13px; letter-spacing: .12em;
+    text-transform: uppercase; color: var(--muted); margin: 0 0 14px;
+  }
+
+  .app { display: grid; grid-template-columns: 140px 1fr; gap: 24px; padding: 24px; align-items: center; }
+  .app img { width: 140px; height: 140px; border-radius: 30px; border: 3px solid var(--ink); display: block; }
+  .app h3 { font-size: 30px; }
+  .app p { margin: 8px 0 14px; color: var(--muted); }
+  .chips { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 18px; }
+  .chip {
+    font-size: 13px; font-weight: 800; padding: 4px 12px; border-radius: 999px;
+    border: 2px solid var(--ink); background: var(--bg); color: var(--ink);
+  }
+  .actions { display: flex; flex-wrap: wrap; gap: 12px 18px; align-items: center; }
+  .btn {
+    display: inline-flex; align-items: center; gap: 8px; text-decoration: none;
+    font-family: "Fredoka", sans-serif; font-size: 18px; color: #fff; background: #4B3BD6;
+    border: 3px solid var(--ink); border-radius: 16px; padding: 10px 18px;
+    box-shadow: 4px 4px 0 var(--shadow); transition: transform .12s, box-shadow .12s;
+  }
+  .btn:hover { transform: translate(-1px, -1px); box-shadow: 5px 5px 0 var(--shadow); }
+  .btn:active { transform: translate(3px, 3px); box-shadow: 1px 1px 0 var(--shadow); }
+  .link { font-weight: 800; }
+
+  .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 18px; }
+  .card { padding: 20px 22px; }
+  .card h3 { font-size: 21px; margin-bottom: 6px; }
+  .card p { margin: 0; color: var(--muted); overflow-wrap: anywhere; }
+  .soon { border-style: dashed; box-shadow: none; }
+  .dot { display: inline-block; width: 12px; height: 12px; border-radius: 50%; border: 2px solid var(--ink); margin-right: 8px; vertical-align: -1px; }
+
+  footer { padding: 34px 0 48px; color: var(--muted); font-size: 14px; }
+  footer .wrap { display: flex; flex-wrap: wrap; gap: 8px 20px; justify-content: space-between; }
+
+  @media (max-width: 560px) {
+    header { padding-top: 36px; }
+    .app { grid-template-columns: 1fr; padding: 20px; }
+    .app img { width: 104px; height: 104px; border-radius: 24px; }
+  }
 </style>
 </head>
 <body>
-<h1>Hamza Ali Kundi</h1>
-<p>Android app developer.</p>
-<ul>
-  <li><a href="https://play.google.com/store/apps/details?id=com.hamzaali.mathflashquiz">Math Flash Quiz</a> on Google Play</li>
-  <li><a href="https://hamzaalikundi.github.io/legal-pages/">Privacy policies</a></li>
-</ul>
+  <header>
+    <div class="wrap">
+      <div class="hello">
+        <div class="tiles" aria-hidden="true"><span>+</span><span>−</span><span>×</span><span>÷</span></div>
+        <h1>Hi, I'm <span class="hl">Hamza</span>.</h1>
+      </div>
+      <p class="tagline">I make playful, kid-friendly Android apps that turn practice into a game.</p>
+    </div>
+  </header>
+
+  <main>
+    <section>
+      <div class="wrap">
+        <p class="label">My apps</p>
+        <article class="sticker app">
+          <img src="assets/math-flash-quiz.png" alt="Math Flash Quiz app icon" width="140" height="140" />
+          <div>
+            <h3>Math Flash Quiz</h3>
+            <p>Quick-fire math for kids: add, subtract, multiply and divide against the clock. Earn streaks, unlock surprise gifts and play with Digi, a friendly math buddy who cheers you on.</p>
+            <div class="chips">
+              <span class="chip">Ages 6 to 12</span>
+              <span class="chip">No sign-up</span>
+              <span class="chip">3 levels</span>
+              <span class="chip">50 gifts to unlock</span>
+            </div>
+            <div class="actions">
+              <a class="btn" href="https://play.google.com/store/apps/details?id=com.hamzaali.mathflashquiz">▶ Get it on Google Play</a>
+              <a class="link" href="https://hamzaalikundi.github.io/legal-pages/math-flash-quiz/">Privacy policy</a>
+            </div>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section>
+      <div class="wrap grid">
+        <div class="sticker card soon">
+          <h3><span class="dot" style="background: var(--yellow)"></span>More apps coming</h3>
+          <p>New learning games are on the way. Check back soon!</p>
+        </div>
+        <div class="sticker card">
+          <h3><span class="dot" style="background: var(--green)"></span>Made for families</h3>
+          <p>Simple, safe and kid-first: no accounts, and only family-friendly ads.</p>
+        </div>
+        <div class="sticker card">
+          <h3><span class="dot" style="background: var(--cyan)"></span>Say hello</h3>
+          <p>Questions or ideas? Email <a href="mailto:hamza.alee83@gmail.com">hamza.alee83@gmail.com</a></p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="wrap">
+      <span>© 2026 Hamza Ali Kundi</span>
+      <span><a href="https://hamzaalikundi.github.io/legal-pages/">Privacy policies</a></span>
+    </div>
+  </footer>
 </body>
 </html>
